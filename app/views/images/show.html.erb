@@ -1,0 +1,13 @@
+<% if notice %>
+  <%= notice %>
+<% end %>
+
+<h1>Image Show Page</h1>
+<p>
+  Image: <%= image_tag @image.image_url.to_s %>
+</p>
+<p>
+  Description: <%= @image.description %>
+</p>
+<%= link_to "Edit Image", edit_image_path(@image) %>
+<%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>

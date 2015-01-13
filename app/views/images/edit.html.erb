@@ -1,0 +1,12 @@
+<% if notice %>
+  <%= notice %>
+<% end %>
+<h1>Edit an Image</h1>
+<%= form_for @image, :html => {:multipart => true} do |f| %>
+  <%= f.file_field :image %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.label :remote_image_url %>
+  <%= f.text_field :remote_image_url %>
+  <%= f.submit %>
+<% end %>

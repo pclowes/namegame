@@ -1,0 +1,22 @@
+<% if notice %>
+  <%= notice %>
+<% end %>
+
+<h1>Images</h1>
+<p>
+  <%= link_to "Create Image", new_image_path %>
+</p>
+
+<% @images.each do |image| %>
+  <p>
+    <p>Image</p> <%= image.image %>
+    <p>Image Description</p> <%= image.description %>
+    <p>Create At</p> <%= image.created_at %>
+    <p>Updated At</p> <%= image.updated_at %>
+    <p>
+      <%= link_to "Show", image_path(image[:id]) %>
+      <%= link_to "Edit", edit_image_path(image[:id]) %>
+      <%= link_to "Destroy", image_path(image[:id]), method: :delete, data: {confirm: "Are you sure?"} %>
+    </p>
+  </p>
+<% end %>
