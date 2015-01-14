@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', '~> 1.0.2'
+gem 'rmagick'
+gem 'fog'
 gem 'carrierwave'
 gem 'carrierwave_direct'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
