@@ -4,10 +4,28 @@
 
 <h1>Image Show Page</h1>
 <p>
-  Image: <%= image_tag @image.image_url.to_s %>
+  Image: <%= image_tag @image.image_url, :id => "image" %>
 </p>
 <p>
   Description: <%= @image.description %>
 </p>
 <%= link_to "Edit Image", edit_image_path(@image) %>
 <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
+<% content_for :javascripts do %>
+<script charset="utf-8">
+$(function () {
+
+  $("#image").offset().top;
+  console.lgo()$("#image").offset().top;
+
+  $('#image').faceDetection({
+    complete: function (faces) {
+      console.log(faces);
+    },
+    error: function (code, message) {
+      //console.log(code, message)...
+    }
+  });
+});
+</script>
+<% end %>
