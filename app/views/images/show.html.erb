@@ -12,20 +12,11 @@
 <%= link_to "Edit Image", edit_image_path(@image) %>
 <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
 <% content_for :javascripts do %>
-<script charset="utf-8">
-$(function () {
-
-  $("#image").offset().top;
-  console.lgo()$("#image").offset().top;
-
+  <script charset="utf-8">
   $('#image').faceDetection({
     complete: function (faces) {
       console.log(faces);
-    },
-    error: function (code, message) {
-      //console.log(code, message)...
     }
   });
-});
-</script>
+  </script>
 <% end %>
