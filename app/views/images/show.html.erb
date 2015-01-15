@@ -3,67 +3,53 @@
 <% end %>
 
 <h1>Image Show Page</h1>
-<p>
-  Image: <%= image_tag @image.image_url(:preview), :id => "image", :crossorigin => true %>
-</p>
-<p>
-  Description: <%= @image.description %>
-</p>
-<%= link_to "Edit Image", edit_image_path(@image) %>
-<%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
+<div class="picture-container">
+  <%= image_tag @image.image_url(:preview), :class => "image" %>
+</div>
 
-<% content_for :javascripts do %>
-  <script charset="utf-8">
+<p>
+Description: <%= @image.description %>
+</p>
+<a class="detect">
+  Click to Detect Faces!
+  <button name="detect"></button>
+</a>
+<p>
+  <%= link_to "Edit Image", edit_image_path(@image) %>
+  <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% content_for :javascripts do %>
+</p>
 
-    $('#image').faceDetection({
-      complete: function (faces) {
-        console.log(faces);
-      }
+<script charset="utf-8">
+  $('.detect').click(function (e) {
+    e.preventDefault();
+    $(".image").each(function() {
+      var img = this;
+
+      // Get faces cooridnates
+      $(img).faceDetection({
+        complete: function (faces) {
+          for (var i = 0; i < faces.length; i++) {
+            var yCords      = faces[i].y,
+                xCords      = faces[i].x,
+                faceWidth   = faces[i].width,
+                faceHeight  = faces[i].height;
+
+            $("<div>", {
+              class:'face',
+              css: {
+                position: "absolute",
+                left: faces[i].x - (.75 * faces[i].width) + 'px',
+                top: faces[i].y - (.75 * faces[i].height) + 'px',
+                width: (2.5 * faces[i].width)  + 'px',
+                height: (2.5 * faces[i].height) + 'px',
+              }
+            }).appendTo(img.parentNode);
+          }
+        }
+      });
     });
-  // $('#image').on("load", function () {
-  //   console.log("image loaded");
-  // });
-  //
-  // $(function () {
-  //   console.log("dom loaded");
-  // });
-  //
-  //
-  // setTimeout(function(){
-  // }, 20000);
-  //
-  //   $('#image').faceDetection({
-  //     complete: function (faces) {
-  //       console.log(faces);
-  //     }
-  //   });
-  // })
-  //
-  // var coords = $("image").faceDetection()
-  // console.log(coords)
+  });
 
-
-
-  // $("#image").each(function() {
-  //   var img = this;
-  //   // Get faces cooridnates
-  //   var coordinates = $('#image').faceDetection();
-  //   // Make boxes if faces are found
-  //   if(coordinates.length) {
-  //     coordinates.forEach(function(coord) {
-  //       jQuery("<div>", {
-  //         css: {
-  //           position: "absolute",
-  //           left: coord.positionX + 5 + "px",
-  //           top: coord.positionY + 5 + "px",
-  //           width: coord.width + "px",
-  //           height: coord.height + "px",
-  //           border: "3px solid white"
-  //         }
-  //       }).appendTo(img.parentNode);
-  //     });
-  //   }
-  // });
-
-  </script>
+</script>
 <% end %>

@@ -1,3 +1,17 @@
+.picture-container {
+  position: relative;
+}
+
+.picture {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.face {
+  position: absolute;
+  border: 3px solid #FFF;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
