@@ -4,29 +4,66 @@
 
 <h1>Image Show Page</h1>
 <p>
-  Image: <%= image_tag @image.image_url(:preview), :id => "image" %>
+  Image: <%= image_tag @image.image_url(:preview), :id => "image", :crossorigin => true %>
 </p>
 <p>
   Description: <%= @image.description %>
 </p>
 <%= link_to "Edit Image", edit_image_path(@image) %>
 <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
+
 <% content_for :javascripts do %>
   <script charset="utf-8">
-  $('#image').faceDetection({
-    complete: function (faces) {
-      console.log(faces);
-    }
-  });
+
+    $('#image').faceDetection({
+      complete: function (faces) {
+        console.log(faces);
+      }
+    });
+  // $('#image').on("load", function () {
+  //   console.log("image loaded");
+  // });
+  //
+  // $(function () {
+  //   console.log("dom loaded");
+  // });
+  //
+  //
+  // setTimeout(function(){
+  // }, 20000);
+  //
+  //   $('#image').faceDetection({
+  //     complete: function (faces) {
+  //       console.log(faces);
+  //     }
+  //   });
+  // })
+  //
+  // var coords = $("image").faceDetection()
+  // console.log(coords)
+
+
+
+  // $("#image").each(function() {
+  //   var img = this;
+  //   // Get faces cooridnates
+  //   var coordinates = $('#image').faceDetection();
+  //   // Make boxes if faces are found
+  //   if(coordinates.length) {
+  //     coordinates.forEach(function(coord) {
+  //       jQuery("<div>", {
+  //         css: {
+  //           position: "absolute",
+  //           left: coord.positionX + 5 + "px",
+  //           top: coord.positionY + 5 + "px",
+  //           width: coord.width + "px",
+  //           height: coord.height + "px",
+  //           border: "3px solid white"
+  //         }
+  //       }).appendTo(img.parentNode);
+  //     });
+  //   }
+  // });
+
   </script>
 <% end %>
-
-<!-- for (var i = 0; i < faces.length; i++) {
-  var face = faces[i];
-  im.rectangle(
-    [face.x, face.y],
-    [face.x + face.width, face.y + face.height],
-    [0, 255, 0],
-    2
-  );
-} -->
