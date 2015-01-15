@@ -3,20 +3,71 @@
 <% end %>
 
 <h1>Image Show Page</h1>
-<p>
-  Image: <%= image_tag @image.image_url, :id => "image" %>
-</p>
+<div class="picture-container">
+  <%= image_tag @image.image_url, :class => "image" %>
+</div>
+
 <p>
   Description: <%= @image.description %>
 </p>
 <%= link_to "Edit Image", edit_image_path(@image) %>
 <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
 <% content_for :javascripts do %>
-  <script charset="utf-8">
-  $('#image').faceDetection({
+<script charset="utf-8">
+
+  $(".image").each(function() {
+    var img = this;
+
+    // Get faces cooridnates
+    $(img).faceDetection({
+      complete: function (faces) {
+        for (var i = 0; i < faces.length; i++) {
+          var yCords      = faces[i].y,
+              xCords      = faces[i].x,
+              faceWidth   = faces[i].width,
+              faceHeight  = faces[i].height;
+
+          $("<div>", {
+            class:'face',
+            css: {
+              position: "absolute",
+              left: faces[i].x - (.75 * faces[i].width) + 'px',
+              top: faces[i].y - (.75 * faces[i].height) + 'px',
+              width: (2.5 * faces[i].width)  + 'px',
+              height: (2.5 * faces[i].height) + 'px',
+            }
+          }).appendTo(img.parentNode);
+        }
+      }
+    });
+  });
+</script>
+<% end %>
+
+
+<!-- $('#try-it').click(function (e) {
+  e.preventDefault();
+
+  $('.face').remove();
+
+  $('#picture').faceDetection({
     complete: function (faces) {
-      console.log(faces);
+      for (var i = 0; i < faces.length; i++) {
+        $('<div>', {
+          'class':'face',
+          'css': {
+            'position': 'absolute',
+            'left':   faces[i].x * faces[i].scaleX + 'px',
+            'top':    faces[i].y * faces[i].scaleY + 'px',
+            'width':  faces[i].width  * faces[i].scaleX + 'px',
+            'height': faces[i].height * faces[i].scaleY + 'px'
+          }
+        })
+        .insertAfter(this);
+      }
+    },
+    error:function (code, message) {
+      alert('Error: ' + message);
     }
   });
-  </script>
-<% end %>
+}); -->
