@@ -10,37 +10,46 @@
 <p>
   Description: <%= @image.description %>
 </p>
-<%= link_to "Edit Image", edit_image_path(@image) %>
-<%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
-<% content_for :javascripts do %>
+<a class="detect">
+  Click to Detect Faces!
+  <button name="detect"></button>
+</a>
+<p>
+  <%= link_to "Edit Image", edit_image_path(@image) %>
+  <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% content_for :javascripts do %>
+</p>
 <script charset="utf-8">
+  $('.detect').click(function (e) {
+    e.preventDefault();
+    $(".image").each(function() {
+      var img = this;
 
-  $(".image").each(function() {
-    var img = this;
+      // Get faces cooridnates
+      $(img).faceDetection({
+        complete: function (faces) {
+          for (var i = 0; i < faces.length; i++) {
+            var yCords      = faces[i].y,
+                xCords      = faces[i].x,
+                faceWidth   = faces[i].width,
+                faceHeight  = faces[i].height;
 
-    // Get faces cooridnates
-    $(img).faceDetection({
-      complete: function (faces) {
-        for (var i = 0; i < faces.length; i++) {
-          var yCords      = faces[i].y,
-              xCords      = faces[i].x,
-              faceWidth   = faces[i].width,
-              faceHeight  = faces[i].height;
-
-          $("<div>", {
-            class:'face',
-            css: {
-              position: "absolute",
-              left: faces[i].x - (.75 * faces[i].width) + 'px',
-              top: faces[i].y - (.75 * faces[i].height) + 'px',
-              width: (2.5 * faces[i].width)  + 'px',
-              height: (2.5 * faces[i].height) + 'px',
-            }
-          }).appendTo(img.parentNode);
+            $("<div>", {
+              class:'face',
+              css: {
+                position: "absolute",
+                left: faces[i].x - (.75 * faces[i].width) + 'px',
+                top: faces[i].y - (.75 * faces[i].height) + 'px',
+                width: (2.5 * faces[i].width)  + 'px',
+                height: (2.5 * faces[i].height) + 'px',
+              }
+            }).appendTo(img.parentNode);
+          }
         }
-      }
+      });
     });
   });
+
 </script>
 <% end %>
 
