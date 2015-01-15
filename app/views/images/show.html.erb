@@ -4,14 +4,14 @@
 
 <h1>Image Show Page</h1>
 <div class="picture-container">
-  <%= image_tag @image.image_url(:preview), :class => "image" %>
+  <%= image_tag @image.image_url, :class => "image", :crossorigin => true %>
 </div>
 
 <p>
 Description: <%= @image.description %>
 </p>
 <a class="detect">
-  Click to Detect Faces!
+  Click to Detect Faces:
   <button name="detect"></button>
 </a>
 <p>
