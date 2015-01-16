@@ -4,15 +4,15 @@
 
 <h1>Image Show Page</h1>
 <div class="picture-container">
-  <%= image_tag @image.image_url, :class => "image", :crossorigin => true %>
+  <%= image_tag @image.image_url, :class => "image", :id => "image", :crossorigin => true %>
 </div>
+<canvas id="canvas" width="450" height="454">
+</canvas>
 
 <p>
 Description: <%= @image.description %>
 </p>
-<a class="detect">
-  Click to Detect Faces:
-  <button name="detect"></button>
+  <button class="detect">Click to Detect Faces </button>
 </a>
 <p>
   <%= link_to "Edit Image", edit_image_path(@image) %>
@@ -21,35 +21,70 @@ Description: <%= @image.description %>
 </p>
 
 <script charset="utf-8">
-  $('.detect').click(function (e) {
-    e.preventDefault();
-    $(".image").each(function() {
-      var img = this;
 
-      // Get faces cooridnates
-      $(img).faceDetection({
-        complete: function (faces) {
-          for (var i = 0; i < faces.length; i++) {
-            var yCords      = faces[i].y,
-                xCords      = faces[i].x,
-                faceWidth   = faces[i].width,
-                faceHeight  = faces[i].height;
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var imageObj = document.getElementById('image');
+// var imageObj = new Image();
 
-            $("<div>", {
-              class:'face',
-              css: {
-                position: "absolute",
-                left: faces[i].x - (.75 * faces[i].width) + 'px',
-                top: faces[i].y - (.75 * faces[i].height) + 'px',
-                width: (2.5 * faces[i].width)  + 'px',
-                height: (2.5 * faces[i].height) + 'px',
-              }
-            }).appendTo(img.parentNode);
-          }
-        }
-      });
-    });
-  });
+imageObj.onload = function() {
+  // draw cropped image
+  // starting from the top left of the image source X says how many pixels right to go to start crop
+  var sourceX = 150;
+  // starting from the top left of the image source y says how many pixels down to go to start crop
+  var sourceY = 0;
+  // tells how many total pixels to crop from left to right
+  var sourceWidth = 150;
+  // tells how many total pixels to crop from top to bottom
+  var sourceHeight = 150;
+  // tells how wide the cropped image should be (can zoom in out and skew)
+  var destWidth = sourceWidth;
+  // tells how high the cropped image should be (can zoom in out and skew)
+  var destHeight = sourceHeight;
+  //tells where to put the top left corner of the cropped image
+  var destX = 0;
+  var destY = 0;
+
+  context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+};
+// imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+
+
+
+
+
+
+
+
+  // $('.detect').click(function (e) {
+  //   e.preventDefault();
+  //   $(".image").each(function() {
+  //     var img = this;
+  //
+  //     // Get faces cooridnates
+  //     $(img).faceDetection({
+  //       complete: function (faces) {
+  //         for (var i = 0; i < faces.length; i++) {
+  //           var yCords      = faces[i].y,
+  //               xCords      = faces[i].x,
+  //               faceWidth   = faces[i].width,
+  //               faceHeight  = faces[i].height;
+  //
+  //           $("<div>", {
+  //             class:'face',
+  //             css: {
+  //               position: "absolute",
+  //               left: faces[i].x - (.75 * faces[i].width) + 'px',
+  //               top: faces[i].y - (.75 * faces[i].height) + 'px',
+  //               width: (2.5 * faces[i].width)  + 'px',
+  //               height: (2.5 * faces[i].height) + 'px',
+  //             }
+  //           }).appendTo(img.parentNode);
+  //         }
+  //       }
+  //     });
+  //   });
+  // });
 
 </script>
 <% end %>
