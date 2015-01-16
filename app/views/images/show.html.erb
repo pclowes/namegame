@@ -4,59 +4,70 @@
 <% end %>
 
 <h1>Image Show Page</h1>
+
 <div class="picture-container">
-  <%= image_tag @image.image_url, :class => "image", :id => "image", :crossorigin => true %>
+  <img id="picture" class="picture" src="<%= @image.image.url %>">
 </div>
-<canvas id="canvas" width="578" height="550"></canvas>
 
 <p>
 Description: <%= @image.description %>
 </p>
   <button class="detect">Click to Detect Faces </button>
-</a>
 <p>
   <%= link_to "Edit Image", edit_image_path(@image) %>
   <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
   <% content_for :javascripts do %>
 </p>
 
-<script charset="utf-8">
+<script>
 
-  $('.detect').click(function (e) {
-    e.preventDefault();
-    $(".image").each(function() {
-      var canvas  = document.getElementById('canvas'),
-          context = canvas.getContext('2d'),
-          img     = this;
+  $(function () {
+    "use strict";
+    $('.detect').click(function (e) {
+      e.preventDefault();
+      // when there is an error, it calls your error function, then complete <- jank!!!
+      // when there is no error function, it just calls complete but faces is false <- jank!!!
 
-      // Get faces cooridnates
-      $(img).faceDetection({
-        complete: function (faces) {
-          for (var i = 0; i < faces.length; i++) {
-            var xCords          = faces[i].x,
-                yCords          = faces[i].y,
-                faceWidth       = faces[i].width,
-                faceHeight      = faces[i].height;
-                scaledXCords    = xCords - (.75 * faceWidth),
-                scaledYCords    = yCords - (.75 * faceHeight),
-                scaledWidth     = (2.5 * faceWidth),
-                scaledHeight    = (2.5 * faceHeight);
-            // draw cropped headshots
-            context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
+      $(".picture").faceDetection({
+          grayscale: false,
+          error : function (code, error) {
+            console.log(arguments);
+          },
+          complete: function (faces) {
+            if(faces){
+              console.log(arguments);
+              // change to the plugin would be to not call this callback on error
+              for (var i = 0; i < faces.length; i++) {
+                var xCords          = faces[i].x,
+                    yCords          = faces[i].y,
+                    faceWidth       = faces[i].width,
+                    faceHeight      = faces[i].height,
+                    scaledXCords    = xCords - (.75 * faceWidth),
+                    scaledYCords    = yCords - (.75 * faceHeight),
+                    scaledWidth     = (2.5 * faceWidth),
+                    scaledHeight    = (2.5 * faceHeight),
+                    img             = this.get(0);
 
-            // draw box around found faces
-            $("<div>", {
-              class:'face',
-              css: {
-                position: "absolute",
-                left:   xCords,
-                top:    yCords,
-                width:  faceWidth,
-                height: faceHeight,
+                // draw cropped headshots
+                var canvas = $("<canvas>").get(0);
+                var context = canvas.getContext('2d');
+                context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
+                $(img.parentNode).append(canvas);
+
+                // draw box around found faces
+                $("<div>", {
+                  class:'face',
+                  css: {
+                    position: "absolute",
+                    left:   xCords,
+                    top:    yCords,
+                    width:  faceWidth,
+                    height: faceHeight,
+                  }
+                }).appendTo(img.parentNode);
               }
-            }).appendTo(img.parentNode);
+            }
           }
-        }
       });
     });
   });

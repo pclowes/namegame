@@ -1,17 +1,3 @@
-.picture-container {
-  position: relative;
-}
-
-.picture {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.face {
-  position: absolute;
-  border: 3px solid #FFF;
-}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -27,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+
+.picture-container {
+ position: relative;
+/*
+width: 600px;
+height: auto;
+margin: 20px auto;
+border: 10px solid #fff;
+box-shadow: 0 5px 5px #000;
+*/
+}
+ .picture {
+/*    display: block;
+width: 100%;
+height: auto;
+*/
+}
+
+ .face {
+   position: absolute;
+   border: 2px solid #FFF;
+ }
