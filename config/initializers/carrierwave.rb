@@ -18,3 +18,7 @@
 #   config.cache_dir = "#{Rails.root}/tmp/uploads"
 #   config.fog_directory = ENV['S3_BUCKET_NAME']
 # end
+#
+#
+# # resetup carrierwave
+# # see if we can get it to work with s3

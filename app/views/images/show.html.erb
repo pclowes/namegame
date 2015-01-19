@@ -4,9 +4,9 @@
 <% end %>
 
 <h1>Image Show Page</h1>
-
+<!-- crossorigin="anonymous" -->
 <div class="picture-container">
-  <img id="picture" class="picture" src="<%= @image.image.url %>">
+  <img id="picture" class="picture" src="<%= @image.image.url(:preview) %>">
 </div>
 
 <p>
@@ -49,7 +49,7 @@ Description: <%= @image.description %>
                     img             = this.get(0);
 
                 // draw cropped headshots
-                var canvas = $("<canvas>").get(0);
+                var canvas = $("<canvas>", {'class':'radHuh'}).attr({'width':scaledWidth,'height':scaledHeight}).get(0);
                 var context = canvas.getContext('2d');
                 context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
                 $(img.parentNode).append(canvas);
