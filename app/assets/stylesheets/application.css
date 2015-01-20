@@ -31,6 +31,11 @@ height: auto;
 */
 }
 
+.sub-picture {
+  width: 250px;
+  height: 250px;
+}
+
  .face {
    position: absolute;
    border: 2px solid #FFF;
