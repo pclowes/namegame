@@ -13,18 +13,30 @@
  *= require_tree .
  *= require_self
  */
+body {
+ width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
 
 .picture-container {
- position: relative;
-/*
-width: 600px;
-height: auto;
-margin: 20px auto;
-border: 10px solid #fff;
-box-shadow: 0 5px 5px #000;
-*/
+  position: relative;
+  width: 256px;
+  height: auto;
+  margin: 20px auto;
+  border: 10px solid #fff;
+  box-shadow: 0 5px 5px #000;
 }
- .picture {
+
+.index-image {
+  width: 250px;
+  height: auto;
+}
+
+.picture {
 /*    display: block;
 width: 100%;
 height: auto;

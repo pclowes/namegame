@@ -9,7 +9,7 @@
 
 <% @images.each do |image| %>
   <p>
-    <%= image_tag image.image_url(:preview), :id => "image" %>
+    <%= image_tag image.image_url, :id => "image", :class => "index-image" %>
     <p>Image Description: <%= image.description %> </p>
     <p>Create At</p> <%= image.created_at %>
     <p>Updated At</p> <%= image.updated_at %>
