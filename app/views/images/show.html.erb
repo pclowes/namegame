@@ -14,14 +14,13 @@
 <p>
 Description: <%= @image.description %>
 </p>
-  <button class="detect">Click to Detect Faces </button>
+  <button class="detect">Extract Faces</button>
 <p>
   <%= link_to "Edit Image", edit_image_path(@image) %>
   <%= link_to "Delete Image", image_path(@image), method: :delete, data: {confirm: "Are you sure?"} %>
   <% content_for :javascripts do %>
 </p>
 
-<%= javascript_include_tag "application" %>
-<button name="save">Click to save sub-images</button>
+<button name="save" class="save-subs">Save Faces</button>
 
 <% end %>

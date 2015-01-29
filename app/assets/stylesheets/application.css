@@ -13,18 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
 body {
  width: 100%;
+ background-image: url("mainbackground.jpg");
+ background-repeat: repeat;
+ background-size: 100%;
 }
 
-img {
+/* img {
   max-width: 100%;
 }
+ */
 
 
 .picture-container {
   position: relative;
-  width: 256px;
+  width: 100%;
   height: auto;
   margin: 20px auto;
   border: 10px solid #fff;
@@ -37,18 +45,22 @@ img {
 }
 
 .picture {
-/*    display: block;
+/* display: block;
 width: 100%;
-height: auto;
-*/
+height: auto; */
+}
+
+canvas {
+  margin: 20px;
 }
 
 .sub-picture {
   width: 250px;
   height: 250px;
 }
-
- .face {
-   position: absolute;
+/* This draws the faces onto the canvas if desires, need full zi */
+ /* .face {
+   position: relative;
    border: 2px solid #FFF;
  }
+ */

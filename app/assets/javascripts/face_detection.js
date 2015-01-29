@@ -1,5 +1,13 @@
 $(function () {
   "use strict";
+  clickdetect();
+  setUpButton();
+});
+
+function setUpButton() {
+  $('.save-subs').click(function(){alert('Test')});
+}
+function clickdetect() {
   $('.detect').click(function (e) {
     e.preventDefault();
     // when there is an error, it calls your error function, then complete <- jank!!!
@@ -12,10 +20,8 @@ $(function () {
       },
       complete: function (faces) {
         if(faces){
-          console.log(arguments);
-          // change to the plugin would be to not call this callback on error
           for (var i = 0; i < faces.length; i++) {
-            var xCords          = faces[i].x,
+            var xCords      = faces[i].x,
             yCords          = faces[i].y,
             faceWidth       = faces[i].width,
             faceHeight      = faces[i].height,
@@ -30,7 +36,7 @@ $(function () {
             var context = canvas.getContext('2d');
             context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
             $(img.parentNode).append(canvas);
-            var checkbox = $("<input type='checkbox'>")
+            var checkbox = $("<input type='checkbox', checked='true'>")
             $(img.parentNode).append(checkbox)
 
             // scale cropped images to fit canvas css
@@ -44,19 +50,19 @@ $(function () {
             });
 
             // draw box around found faces
-            $("<div>", {
-              class:'face',
-              css: {
-                position: "absolute",
-                left:   xCords,
-                top:    yCords,
-                width:  faceWidth,
-                height: faceHeight,
-              }
-            }).appendTo(img.parentNode);
+            // $("<div>", {
+            //   class:'face',
+            //   css: {
+            //     position: "absolute",
+            //     left:   xCords,
+            //     top:    yCords,
+            //     width:  faceWidth,
+            //     height: faceHeight,
+            //   }
+            // }).appendTo(img.parentNode);
           }
         }
       }
     });
   });
-});
+}
