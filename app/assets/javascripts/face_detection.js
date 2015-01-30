@@ -4,9 +4,7 @@ $(function () {
   setUpButton();
 });
 
-function setUpButton() {
-  $('.save-subs').click(function(){alert('Test')});
-}
+
 function clickdetect() {
   $('.detect').click(function (e) {
     e.preventDefault();
@@ -32,11 +30,12 @@ function clickdetect() {
             img             = this.get(0);
 
             // draw cropped headshots
-            var canvas = $("<canvas>", {'class':'sub-picture'}).attr({'width':scaledWidth,'height':scaledHeight}).get(0);
+            var canvas = $("<canvas>", {'class':'sub-picture', 'name':'test[' + i + '][selected]'}).attr({'width':scaledWidth,'height':scaledHeight}).get(0);
+            var dataURL = canvas.toDataURL();
             var context = canvas.getContext('2d');
             context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
             $(img.parentNode).append(canvas);
-            var checkbox = $("<input type='checkbox', checked='true'>")
+            var checkbox = $("<input type='checkbox' name='test[" + i + "][selected]' >")
             $(img.parentNode).append(checkbox)
 
             // scale cropped images to fit canvas css
@@ -49,6 +48,14 @@ function clickdetect() {
               $(this).css(css);
             });
 
+
+            $('.save-subs').click(function(){
+              $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/images/' + 39 + '/subimages',
+                data: {subimage: dataURL}
+              })
+            });
             // draw box around found faces
             // $("<div>", {
             //   class:'face',
