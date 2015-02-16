@@ -19,7 +19,8 @@
 }
 body {
  width: 100%;
- background-image: url("mainbackground.jpg");
+ -background-image: url("mainbackground.jpg");
+ background: black;
  background-repeat: repeat;
  background-size: 100%;
 }
@@ -37,9 +38,7 @@ body {
 }
 
 canvas {
-  width: 250px;
-  height: 250px;
-  border: 10px solid #fff;
+  background: white;
 }
 
 .index-image {

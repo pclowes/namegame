@@ -29,11 +29,11 @@ function clickdetect() {
             var canvas = $("<canvas>", {'class':'sub-picture', 'name':'test[' + i + '][selected]'}).attr({'width':scaledWidth,'height':scaledHeight}).get(0);
             var dataURL = canvas.toDataURL();
             var context = canvas.getContext('2d');
-            context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
+            context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, , 0, scaledWidth, scaledHeight);
             $(img.parentNode).append(canvas);
             var checkbox = $("<input type='checkbox' name='test[" + i + "][selected]' >")
             $(img.parentNode).append(checkbox)
-            scaleSubImage();
+            // scaleSubImage();
             saveSubImage(dataURL);
           }
         }
@@ -43,16 +43,16 @@ function clickdetect() {
 }
 
 
-function scaleSubImage () {
-  $('canvas').on('load',function(){
-    var css;
-    var ratio=$(this).width() / $(this).height();
-    var pratio=$('.sub-picture').parent().width() / $('.sub-picture').parent().height();
-    if (ratio<pratio) css={width:'auto', height:'100%'};
-    else css={width:'100%', height:'100%'};
-    $(this).css(css);
-  });
-}
+// function scaleSubImage () {
+//   $('canvas').on('load',function(){
+//     var css;
+//     var ratio=$(this).width() / $(this).height();
+//     var pratio=$('.sub-picture').parent().width() / $('.sub-picture').parent().height();
+//     if (ratio<pratio) css={width:'auto', height:'100%'};
+//     else css={width:'100%', height:'100%'};
+//     $(this).css(css);
+//   });
+// }
 
 function saveSubImage (dataURL) {
   $('.save-subs').click(function(){
@@ -67,15 +67,15 @@ function saveSubImage (dataURL) {
   });
 }
 
-// drawRectangle: function() {
-//   $("<div>", {
-//     class:'face',
-//     css: {
-//       position: "absolute",
-//       left:   xCords,
-//       top:    yCords,
-//       width:  faceWidth,
-//       height: faceHeight,
-//     }
-//   }).appendTo(img.parentNode);
-// }
+function drawRectangle(face) {
+  $("<div>", {
+    class:'face',
+    css: {
+      position: "absolute",
+      left:   xCords,
+      top:    yCords,
+      width:  faceWidth,
+      height: faceHeight,
+    }
+  }).appendTo(img.parentNode);
+}
