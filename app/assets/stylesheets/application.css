@@ -19,9 +19,7 @@
 }
 body {
  width: 100%;
- background-image: url("mainbackground.jpg");
- background-repeat: repeat;
- background-size: 100%;
+ background: white
 }
 
 /* img {
@@ -30,14 +28,6 @@ body {
  */
 
 
-.picture-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin: 20px auto;
-  border: 10px solid #fff;
-  box-shadow: 0 5px 5px #000;
-}
 
 .index-image {
   width: 250px;
@@ -45,18 +35,18 @@ body {
 }
 
 .picture {
-/* display: block;
-width: 100%;
-height: auto; */
+display: block;
+width: 90%;
+height: auto;
+margin: 20px auto;
+border: 10px solid #fff;
+box-shadow: 0 5px 5px #000;
 }
 
-canvas {
-  margin: 20px;
-}
 
 .sub-picture {
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
 }
 /* This draws the faces onto the canvas if desires, need full zi */
  /* .face {
