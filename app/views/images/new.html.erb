@@ -10,18 +10,21 @@
   <%= f.submit %>
 <% end %>
 
+<button id="use_web_cam">Take Photo Using Webcam</button>
 
-<script src="capture.js"></script>
-<div class="contentarea">
-  <h1>Use Webcam to take photo</h1>
-  <div class="visuals">
-    <div class="camera">
-      <video id="video">Video stream not available.</video><button id="startbutton">Take photo</button>
-    </div>
-    <canvas id="canvas">
-    </canvas>
-    <div class="output">
-      <img id="photo" alt="photo">
+<div class="webcam" style="display: none;">
+  <script src="capture.js"></script>
+  <div class="contentarea">
+    <h1>Use Webcam to take photo</h1>
+    <div class="visuals">
+      <div class="camera">
+        <video id="video">Video stream not available.</video><button id="startbutton">Take photo</button>
+      </div>
+      <canvas id="canvas">
+      </canvas>
+      <div class="output">
+        <img id="photo" alt="photo">
+      </div>
     </div>
   </div>
 </div>

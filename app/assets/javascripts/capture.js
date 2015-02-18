@@ -12,6 +12,7 @@ var photo = null;
 var startbutton = null;
 
 function startup() {
+  $(".webcam").show();
   video = document.getElementById('video');
   canvas = document.getElementById('canvas');
   photo = document.getElementById('photo');
@@ -100,4 +101,5 @@ function startup() {
 
   // Set up our event listener to run the startup process
   // once loading is complete.
-  window.addEventListener('load', startup, false);
+  var useWebCam = document.getElementById('use_web_cam');
+  useWebCam.addEventListener('click', startup, false);

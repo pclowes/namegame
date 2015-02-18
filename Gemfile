@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'pry-rails'
 gem 'dotenv-rails', '~> 1.0.2'
 gem 'rmagick'
 gem 'fog'
