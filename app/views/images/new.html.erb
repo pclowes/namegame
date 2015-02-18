@@ -4,9 +4,24 @@
 
 <h1>Upload an Image</h1>
 <%= form_for @image, :html => {:multipart => true} do |f| %>
-  <%= f.label :image %>
   <%= f.file_field :image %>
   <%= f.label :description %>
   <%= f.text_field :description %>
   <%= f.submit %>
 <% end %>
+
+
+<script src="capture.js"></script>
+<div class="contentarea">
+  <h1>Use Webcam to take photo</h1>
+  <div class="visuals">
+    <div class="camera">
+      <video id="video">Video stream not available.</video><button id="startbutton">Take photo</button>
+    </div>
+    <canvas id="canvas">
+    </canvas>
+    <div class="output">
+      <img id="photo" alt="photo">
+    </div>
+  </div>
+</div>
