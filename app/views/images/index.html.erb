@@ -2,7 +2,7 @@
   <%= notice %>
 <% end %>
 
-<h1>Images</h1>
+<h1>Meet and Greet</h1>
 <p>
   <%= link_to "Create Image", new_image_path %>
 </p>
@@ -10,9 +10,7 @@
 <% @images.each do |image| %>
   <p>
     <%= image_tag image.image_url, :id => "image", :class => "index-image" %>
-    <p>Image Description: <%= image.description %> </p>
-    <p>Create At</p> <%= image.created_at %>
-    <p>Updated At</p> <%= image.updated_at %>
+    <p>Description: <%= image.description %> </p>
     <p>
       <%= link_to "Show", image_path(image[:id]) %>
       <%= link_to "Edit", edit_image_path(image[:id]) %>

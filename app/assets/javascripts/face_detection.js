@@ -10,8 +10,6 @@ function setUpButton() {
 function clickdetect() {
   $('.detect').click(function (e) {
     e.preventDefault();
-    // when there is an error, it calls your error function, then complete <- jank!!!
-    // when there is no error function, it just calls complete but faces is false <- jank!!!
 
     $(".picture").faceDetection({
       grayscale: true,
@@ -25,8 +23,8 @@ function clickdetect() {
             yCords          = faces[i].y,
             faceWidth       = faces[i].width,
             faceHeight      = faces[i].height,
-            scaledXCords    = xCords - (.75 * faceWidth),
-            scaledYCords    = yCords - (.75 * faceHeight),
+            scaledXCords    = xCords - (0.75 * faceWidth),
+            scaledYCords    = yCords - (0.75 * faceHeight),
             scaledWidth     = (2.5 * faceWidth),
             scaledHeight    = (2.5 * faceHeight),
             img             = this.get(0);
@@ -36,8 +34,8 @@ function clickdetect() {
             var context = canvas.getContext('2d');
             context.drawImage(img, scaledXCords, scaledYCords, scaledWidth, scaledHeight, 0, 0, scaledWidth, scaledHeight);
             $(img.parentNode).append(canvas);
-            var checkbox = $("<input type='checkbox', checked='true'>")
-            $(img.parentNode).append(checkbox)
+            var checkbox = $("<input type='checkbox', checked='true'>");
+            $(img.parentNode).append(checkbox);
 
             // scale cropped images to fit canvas css
             $('canvas').on('load',function(){
