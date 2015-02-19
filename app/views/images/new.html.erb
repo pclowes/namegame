@@ -3,7 +3,7 @@
 <% end %>
 
 <h1>Upload an Image</h1>
-<%= form_for @image, :html => {:multipart => true} do |f| %>
+<%= form_for @image, :html => {data: {behavior: "upload-image"}} do |f| %>
   <%= f.file_field :image %>
   <%= f.label :description %>
   <%= f.text_field :description %>
@@ -13,7 +13,6 @@
 <button id="use_web_cam">Take Photo Using Webcam</button>
 
 <div class="webcam" style="display: none;">
-  <script src="capture.js"></script>
   <div class="contentarea">
     <h1>Use Webcam to take photo</h1>
     <div class="visuals">
@@ -28,3 +27,11 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function () {
+      Capture.init();
+    })
+  </script>
+<% end %>

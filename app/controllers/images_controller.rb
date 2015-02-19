@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  require 'base64'
   def index
     @images = Image.all
   end
@@ -8,10 +9,9 @@ class ImagesController < ApplicationController
   end
 
   def create
-    image_params = params.require(:image).permit(:image, :description)
-    @image = Image.new(image_params)
-    @image.save
-    redirect_to image_path(@image), notice: "Image was uploaded successfully"
+    image = Image.create(params.require(:image).permit(:image, :description))
+
+    render json: {location: image_path(image)}
   end
 
   def show
